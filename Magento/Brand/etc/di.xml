@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 MDC_NCN, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Brand\Api\Data\BrandInterface"
+                type="Magento\Brand\Model\Data\Brand"/>
+
+    <preference for="Magento\Brand\Api\BrandRepositoryInterface"
+                type="Magento\Brand\Model\BrandRepository"/>
+
+    <preference for="Magento\Brand\Api\Data\BrandSearchResultsInterface"
+                type="Magento\Brand\Model\SearchResults"/>
+
+    <preference for="Magento\Brand\Api\Data\BrandManagementDataInterface"
+                type="Magento\Brand\Model\Data\BrandManagementData"/>
+
+    <preference for="Magento\Brand\Api\BrandManagementInterface"
+                type="Magento\Brand\Model\BrandManagement"/>
+</config>

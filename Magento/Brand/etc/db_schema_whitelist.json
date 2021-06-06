@@ -1,0 +1,18 @@
+{
+    "mdc_band": {
+        "column": {
+            "brand_id": true,
+            "name": true,
+            "code": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "MDC_BAND_NAME_CODE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MDC_BAND_CODE": true
+        }
+    }
+}

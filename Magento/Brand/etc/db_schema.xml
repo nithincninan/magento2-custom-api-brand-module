@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mdc_band" resource="default" engine="innodb" comment="MDC Brand Table">
+        <column xsi:type="smallint" name="brand_id" unsigned="false" nullable="false" identity="true"
+                comment="Brand ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Brand Title"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="255" comment="Brand Identifier"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Brand Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Brand Modification Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="brand_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="MDC_BRAND_CODE">
+            <column name="code"/>
+        </constraint>
+        <index referenceId="MDC_BRAND_NAME_CODE" indexType="fulltext">
+            <column name="name"/>
+            <column name="code"/>
+        </index>
+    </table>
+</schema>

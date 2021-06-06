@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © 2021 MDC_NCN, Inc. All rights reserved.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route method="POST" url="/V1/brand/create/">
+        <service class="Magento\Brand\Api\BrandManagementInterface" method="createBrand"/>
+        <resources>
+            <resource ref="Magento_Brand::brand_save"/>
+        </resources>
+    </route>
+    <route method="PUT" url="/V1/brand/update/">
+        <service class="Magento\Brand\Api\BrandManagementInterface" method="updateBrand"/>
+        <resources>
+            <resource ref="Magento_Brand::brand_save"/>
+        </resources>
+    </route>
+    <route method="DELETE" url="/V1/brand/:code/">
+        <service class="Magento\Brand\Api\BrandManagementInterface" method="deleteBrand"/>
+        <resources>
+            <resource ref="Magento_Brand::brand_delete"/>
+        </resources>
+    </route>
+    <route method="GET" url="/V1/brand/:code">
+        <service class="Magento\Brand\Api\BrandManagementInterface" method="getBrand"/>
+        <resources>
+            <resource ref="Magento_Brand::brand_view"/>
+        </resources>
+    </route>
+</routes>
