@@ -201,7 +201,7 @@ Testing with swagger/Postman:
         |        1 | Brand Name - Update | brand_code | 2021-06-06 15:47:38 | 2021-06-06 15:50:06 |
         +----------+---------------------+------------+---------------------+---------------------+
     
-    3. Update API:
+    3. Delete API:
         * Method: DELETE
         * URL: {{base_url}}/rest/V1/brand/brand_code
         * Provide Bearer token from admin(system > Integration page > token)
