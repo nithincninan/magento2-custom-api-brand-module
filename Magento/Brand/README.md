@@ -1,4 +1,4 @@
-# BRAND Module(Create/Edit/Delete via Rest API)
+# M2-2.4.2 BRAND Module(Create/Edit/Delete via Rest API)
 
 This module provides the create/edit/manage functionality for Brands(through **Rest API**).
 
