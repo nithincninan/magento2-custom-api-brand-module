@@ -38,6 +38,87 @@ Magento
     `-- registration.php
 ```
 
+**Table: mdc_band**
+
+```
+   +------------+--------------+------+-----+---------------------+-------------------------------+
+   | Field      | Type         | Null | Key | Default             | Extra                         |
+   +------------+--------------+------+-----+---------------------+-------------------------------+
+   | brand_id   | smallint(6)  | NO   | PRI | NULL                | auto_increment                |
+   | name       | varchar(255) | NO   | MUL | NULL                |                               |
+   | code       | varchar(255) | NO   | UNI | NULL                |                               |
+   | created_at | timestamp    | NO   |     | current_timestamp() |                               |
+   | updated_at | timestamp    | NO   |     | current_timestamp() | on update current_timestamp() |
+   +------------+--------------+------+-----+---------------------+-------------------------------+
+```
+
+**Testing with swagger/Postman: - Create/Update/Delete API**
+
+```
+PostMan: 
+
+    1. Create API 
+        * Method: POST
+        * URL: {{base_url}}/rest/V1/brand/create/
+        * Provide Bearer token from admin(Integration token)
+        * Request: 
+            {
+                "brandData": {
+                    "items": [
+                        {
+                        "name": "Brand Name",
+                        "code" : "brand_code"
+                        }
+                    ]
+                }
+           }
+        
+        * o/p:
+        Table: mdc_band;
+        +----------+------------+------------+---------------------+---------------------+
+        | brand_id | name       | code       | created_at          | updated_at          |
+        +----------+------------+------------+---------------------+---------------------+
+        |        1 | Brand Name | brand_code | 2021-06-06 15:47:38 | 2021-06-06 15:47:38 |
+        +----------+------------+------------+---------------------+---------------------+
+    
+    2. Update API:
+        * Method: PUT
+        * URL: {{base_url}}/rest/V1/brand/create/
+        * Provide Bearer token from admin(Integration token)
+        * Request: 
+            {
+                "brandData": {
+                    "items": [
+                        {
+                        "name": "Brand Name - Update",
+                        "code" : "brand_code"
+                        }
+                    ]
+                }
+           }
+        * o/p:
+        Table: mdc_band;
+        +----------+---------------------+------------+---------------------+---------------------+
+        | brand_id | name                | code       | created_at          | updated_at          |
+        +----------+---------------------+------------+---------------------+---------------------+
+        |        1 | Brand Name - Update | brand_code | 2021-06-06 15:47:38 | 2021-06-06 15:50:06 |
+        +----------+---------------------+------------+---------------------+---------------------+
+    
+    3. Delete API:
+        * Method: DELETE
+        * URL: {{base_url}}/rest/V1/brand/brand_code
+        * Provide Bearer token from admin(system > Integration page > token)
+        * o/p:
+        Table: mdc_band;
+        Empty set (0.000 sec)        
+
+    
+Swagger URL: {{base_url}}/swagger
+
+```
+
+File Structure(Description)
+
 1. module.xml: The configuration for a module. This file also contains the sequence element that determines the module load order.
    
    ```
@@ -61,6 +142,7 @@ Magento
       * cmd:- php bin/magento setup:db-declaration:generate-whitelist --module-name=Magento_Brand
 
    ```
+   
    CREATE TABLE `mdc_band` (
     `brand_id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT 'Brand ID',
     `name` varchar(255) NOT NULL COMMENT 'Brand Title',
@@ -71,17 +153,6 @@ Magento
     UNIQUE KEY `MDC_BAND_CODE` (`code`),
     FULLTEXT KEY `MDC_BAND_NAME_CODE` (`name`,`code`)
     ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='MDC Brand Table'
-
-    Table: mdc_band
-    +------------+--------------+------+-----+---------------------+-------------------------------+
-    | Field      | Type         | Null | Key | Default             | Extra                         |
-    +------------+--------------+------+-----+---------------------+-------------------------------+
-    | brand_id   | smallint(6)  | NO   | PRI | NULL                | auto_increment                |
-    | name       | varchar(255) | NO   | MUL | NULL                |                               |
-    | code       | varchar(255) | NO   | UNI | NULL                |                               |
-    | created_at | timestamp    | NO   |     | current_timestamp() |                               |
-    | updated_at | timestamp    | NO   |     | current_timestamp() | on update current_timestamp() |
-    +------------+--------------+------+-----+---------------------+-------------------------------+
    ```
    
 5. Model: Models represent a row of data from the database. Each row, whether it is loaded through a collection or a resource model. 
@@ -149,65 +220,3 @@ Magento
     
                 • <resource ref="Chapter3_Database::discounts"/>:
                 authenticated with the admin ACL.
-
-Testing with swagger/Postman:
-    
-    PostMan: 
-
-    1. Create API 
-        * Method: POST
-        * URL: {{base_url}}/rest/V1/brand/create/
-        * Provide Bearer token from admin(Integration token)
-        * Request: 
-            {
-                "brandData": {
-                    "items": [
-                        {
-                        "name": "Brand Name",
-                        "code" : "brand_code"
-                        }
-                    ]
-                }
-           }
-        
-        * o/p:
-        Table: mdc_band;
-        +----------+------------+------------+---------------------+---------------------+
-        | brand_id | name       | code       | created_at          | updated_at          |
-        +----------+------------+------------+---------------------+---------------------+
-        |        1 | Brand Name | brand_code | 2021-06-06 15:47:38 | 2021-06-06 15:47:38 |
-        +----------+------------+------------+---------------------+---------------------+
-    
-    2. Update API:
-        * Method: PUT
-        * URL: {{base_url}}/rest/V1/brand/create/
-        * Provide Bearer token from admin(Integration token)
-        * Request: 
-            {
-                "brandData": {
-                    "items": [
-                        {
-                        "name": "Brand Name - Update",
-                        "code" : "brand_code"
-                        }
-                    ]
-                }
-           }
-        * o/p:
-        Table: mdc_band;
-        +----------+---------------------+------------+---------------------+---------------------+
-        | brand_id | name                | code       | created_at          | updated_at          |
-        +----------+---------------------+------------+---------------------+---------------------+
-        |        1 | Brand Name - Update | brand_code | 2021-06-06 15:47:38 | 2021-06-06 15:50:06 |
-        +----------+---------------------+------------+---------------------+---------------------+
-    
-    3. Delete API:
-        * Method: DELETE
-        * URL: {{base_url}}/rest/V1/brand/brand_code
-        * Provide Bearer token from admin(system > Integration page > token)
-        * o/p:
-        Table: mdc_band;
-        Empty set (0.000 sec)        
-    
-    Swagger URL: {{base_url}}/swagger
-            
