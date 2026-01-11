@@ -1,7 +1,48 @@
 # M2-2.4.2 BRAND Module(Create/Edit/Delete via Rest API)
 
 This module provides the create/edit/manage functionality for Brands(through **Rest API**).
+ $serverPort = '9092';
 
+        /** Get Server IP */
+        $serverIp = $this->request->getServer('SERVER_ADDR');
+
+        /** DC Servers */
+        $dcIps = [
+            '10.191.10.81',
+            '10.191.10.82',
+            '10.191.10.83',
+            '10.191.10.84',
+            '10.191.10.85'
+        ];
+
+        /** DR Servers */
+        $drIps = [
+            '10.176.70.81',
+            '10.176.70.82',
+            '10.176.70.83',
+            '10.176.70.84',
+            '10.176.70.85'
+        ];
+
+        /** Decide Kafka Broker */
+        if (in_array($serverIp, $dcIps, true)) {
+            // DC
+            $addBroker = implode(',', array_map(
+                fn($ip) => $ip . ':' . $serverPort,
+                $dcIps
+            ));
+        } elseif (in_array($serverIp, $drIps, true)) {
+            // DR
+            $addBroker = implode(',', array_map(
+                fn($ip) => $ip . ':' . $serverPort,
+                $drIps
+            ));
+        } else {
+            // Fallback (optional)
+            $addBroker = '';
+        }
+
+        
 **File Structure:**
 
 ```
